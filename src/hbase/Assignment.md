@@ -97,6 +97,7 @@ Specifically, you should have column families for the following:
 * location information: addresses including street, city, state, and zip. and phone numbers
 
 Place the Hbase code to create the families below:
+
     ```
     hbase(main):001:0> create 'family',
     hbase(main):002:0*   { NAME => 'personal' },
@@ -109,6 +110,7 @@ Place the Hbase code to create the families below:
 
 #### Step 2 - Load five rows of data.
 Make sure to have at least one row with more than one favorite food and at least one row with more than one favorite vacation location. Place the Hbase code below:
+
     ```
     put 'family','fam1','personal:name','Alice'
     put 'family','fam1','personal:birthday','1990-05-14'
@@ -200,6 +202,7 @@ Make sure to have at least one row with more than one favorite food and at least
 Place the Hbase code **and the results** after each query.
 
 **Query 1:** Get complete information for a specific family member.
+
     ```
         hbase(main):051:0> get 'family', 'fam2'
         COLUMN                     CELL
@@ -216,6 +219,7 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 2:** View only personal information for all family members.
+
     ```
         hbase(main):052:0> scan 'family', { COLUMNS => ['personal'] }
         ROW                        COLUMN+CELL
@@ -233,6 +237,7 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 3:** Get the name, favorite foods, and vacation locations for one family member.
+
     ```
     hbase(main):070:0> get 'family','fam1',{ COLUMNS => ['personal:name','favorites'] }
     COLUMN                     CELL
@@ -243,6 +248,7 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 4:** Get a range of at least two family members.
+
     ```
     hbase(main):072:0> scan 'family', { STARTROW => 'fam2', STOPROW => 'fam4' }
     ROW                        COLUMN+CELL
@@ -265,6 +271,7 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 5:** Get the addresses for all family members.
+
     ```
     hbase(main):073:0> scan 'family', { COLUMNS => ['location:street','location:city','location:state','location:zip'] }
     ROW                        COLUMN+CELL
@@ -288,14 +295,16 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 6:** Get the names of family members who like a specific favorite food (e.g., pizza).
-```
-ANSWER HERE
-```
+
+    ```
+    ANSWER HERE
+    ```
 
 **Query 7:** Create a vacation preference list with names.
-```
-ANSWER HERE
-```
+
+    ```
+    ANSWER HERE
+    ```
 
 ### Part 4 - 7in7 - Day 3 - Wrap Up
 
