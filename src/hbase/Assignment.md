@@ -36,20 +36,55 @@ Here are some additional tips:
     * Delete individual column values in a row:
 
         ```
-        WRITE EXAMPLE COMMAND HERE
+        hbase(main):021:0> scan 'wiki'
+        ROW                        COLUMN+CELL
+        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage                  column=revision:comment, timestamp=1762875477703, value=Initial draft
+        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
+                                0:00
+        2 row(s) in 0.0220 seconds
+
+        hbase(main):022:0> delete 'wiki', 'HomePage', 'revision:comment'
+        0 row(s) in 0.0160 seconds
+
+        hbase(main):023:0> scan 'wiki'
+        ROW                        COLUMN+CELL
+        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
+                                0:00
+        2 row(s) in 0.0110 seconds
         ```
 
     * Delete an entire row
 
         ```
-        WRITE EXAMPLE COMMAND HERE
+         hbase(main):023:0> scan 'wiki'
+        ROW                        COLUMN+CELL
+        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
+                                0:00
+        2 row(s) in 0.0110 seconds
+
+        hbase(main):024:0> deleteall 'wiki', 'HomePage'
+        0 row(s) in 0.0050 seconds
+
+        hbase(main):025:0> scan 'wiki'
+        ROW                        COLUMN+CELL
+        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        1 row(s) in 0.0090 seconds
         ```
 
 
 2. Bookmark the HBase API documentation for the version of HBase you’re using.
 
     ```
-    WRITE URL HERE
+    https://hbase.apache.org/book.html
     ```
 
 ### Part 3 - Create a family database
