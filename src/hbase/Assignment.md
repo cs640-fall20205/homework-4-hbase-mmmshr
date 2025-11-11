@@ -243,14 +243,49 @@ Place the Hbase code **and the results** after each query.
     ```
 
 **Query 4:** Get a range of at least two family members.
-```
-ANSWER HERE
-```
+    ```
+    hbase(main):072:0> scan 'family', { STARTROW => 'fam2', STOPROW => 'fam4' }
+    ROW                        COLUMN+CELL
+    fam2                      column=favorites:food, timestamp=1762876134705, value=pasta
+    fam2                      column=favorites:vacation, timestamp=1762876134720, value=Florida
+    fam2                      column=location:city, timestamp=1762876134759, value=Springfield
+    fam2                      column=location:state, timestamp=1762876134776, value=MA
+    fam2                      column=location:street, timestamp=1762876134742, value=80 River St
+    fam2                      column=location:zip, timestamp=1762876134801, value=01109
+    fam2                      column=personal:birthday, timestamp=1762876134681, value=1985-02-01
+    fam2                      column=personal:name, timestamp=1762876134641, value=Bob
+    fam3                      column=favorites:food, timestamp=1762876134874, value=pizza
+    fam3                      column=location:city, timestamp=1762876134935, value=Hartford
+    fam3                      column=location:state, timestamp=1762876134956, value=CT
+    fam3                      column=location:street, timestamp=1762876134902, value=22 Lake Ave
+    fam3                      column=location:zip, timestamp=1762876134981, value=06103
+    fam3                      column=personal:birthday, timestamp=1762876134852, value=2000-10-21
+    fam3                      column=personal:name, timestamp=1762876134833, value=Carol
+    2 row(s) in 0.0290 seconds
+    ```
 
 **Query 5:** Get the addresses for all family members.
-```
-ANSWER HERE
-```
+    ```
+    hbase(main):073:0> scan 'family', { COLUMNS => ['location:street','location:city','location:state','location:zip'] }
+    ROW                        COLUMN+CELL
+    fam1                      column=location:city, timestamp=1762876134539, value=Springfield
+    fam1                      column=location:state, timestamp=1762876134562, value=MA
+    fam1                      column=location:street, timestamp=1762876134504, value=12 Green Rd
+    fam1                      column=location:zip, timestamp=1762876134583, value=01109
+    fam2                      column=location:city, timestamp=1762876134759, value=Springfield
+    fam2                      column=location:state, timestamp=1762876134776, value=MA
+    fam2                      column=location:street, timestamp=1762876134742, value=80 River St
+    fam2                      column=location:zip, timestamp=1762876134801, value=01109
+    fam3                      column=location:city, timestamp=1762876134935, value=Hartford
+    fam3                      column=location:state, timestamp=1762876134956, value=CT
+    fam3                      column=location:street, timestamp=1762876134902, value=22 Lake Ave
+    fam3                      column=location:zip, timestamp=1762876134981, value=06103
+    fam4                      column=location:city, timestamp=1762876135126, value=Providence
+    fam4                      column=location:state, timestamp=1762876135144, value=RI
+    fam5                      column=location:city, timestamp=1762876135359, value=Boston
+    fam5                      column=location:state, timestamp=1762876135375, value=MA
+    5 row(s) in 0.0430 seconds
+    ```
 
 **Query 6:** Get the names of family members who like a specific favorite food (e.g., pizza).
 ```
