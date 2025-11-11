@@ -303,7 +303,18 @@ Place the Hbase code **and the results** after each query.
 **Query 7:** Create a vacation preference list with names.
 
     ```
-    ANSWER HERE
+    hbase(main):005:0> scan 'family', { COLUMNS => ['personal:name','favorites:vacation'] }
+    ROW                             COLUMN+CELL
+    fam1                           column=favorites:vacation, timestamp=1762876134472, value=Japan
+    fam1                           column=personal:name, timestamp=1762876134340, value=Alice
+    fam2                           column=favorites:vacation, timestamp=1762876134720, value=Florida
+    fam2                           column=personal:name, timestamp=1762876134641, value=Bob
+    fam3                           column=personal:name, timestamp=1762876134833, value=Carol
+    fam4                           column=favorites:vacation, timestamp=1762876135103, value=Colorado
+    fam4                           column=personal:name, timestamp=1762876135008, value=David
+    fam5                           column=favorites:vacation, timestamp=1762876135331, value=New York
+    fam5                           column=personal:name, timestamp=1762876135201, value=Emma
+    5 row(s) in 0.0250 seconds
     ```
 
 ### Part 4 - 7in7 - Day 3 - Wrap Up
@@ -313,13 +324,21 @@ Read Day 3 - Wrap Up. Then answer the following.
 1. List the pros of HBase as described in our text.
 
     ```
-    ANSWER HERE
+    • Handles extremely large datasets across many machines.
+    • Scales horizontally using commodity hardware.
+    • Strong consistency for reads and writes.
+    • Flexible schema with column families and sparse storage.
+    • Fast random read/write access.
     ```
 
 2. List the cons of HBase as described in our text.
 
     ```
-    ANSWER HERE
+    • Complex to configure, deploy, and maintain.
+    • Requires HDFS and Hadoop ecosystem components.
+    • Not ideal for small datasets.
+    • No native SQL support.
+    • Limited ad hoc querying and analytics without external tools.
     ```
 
 
