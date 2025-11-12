@@ -37,25 +37,23 @@ Here are some additional tips:
 
         ```
         hbase(main):021:0> scan 'wiki'
-        ROW                        COLUMN+CELL
-        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
-        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
-        HomePage                  column=revision:comment, timestamp=1762875477703, value=Initial draft
-        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
-        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
-                                0:00
+        ROW               COLUMN+CELL
+        Home          column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage      column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage      column=revision:comment, timestamp=1762875477703, value=Initial draft
+        HomePage      column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage      column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:00:00
         2 row(s) in 0.0220 seconds
 
         hbase(main):022:0> delete 'wiki', 'HomePage', 'revision:comment'
         0 row(s) in 0.0160 seconds
 
         hbase(main):023:0> scan 'wiki'
-        ROW                        COLUMN+CELL
-        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
-        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
-        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
-        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
-                                0:00
+        ROW                 COLUMN+CELL
+        Home           column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage       column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage       column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage       column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:00:00
         2 row(s) in 0.0110 seconds
         ```
 
@@ -63,12 +61,11 @@ Here are some additional tips:
 
         ```
          hbase(main):023:0> scan 'wiki'
-        ROW                        COLUMN+CELL
-        Home                      column=text:, timestamp=1762874332332, value=Welcome to the wiki!
-        HomePage                  column=revision:author, timestamp=1762875468168, value=Alice
-        HomePage                  column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
-        HomePage                  column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:0
-                                0:00
+        ROW                 COLUMN+CELL
+        Home            column=text:, timestamp=1762874332332, value=Welcome to the wiki!
+        HomePage        column=revision:author, timestamp=1762875468168, value=Alice
+        HomePage        column=revision:text, timestamp=1762875492531, value=Welcome to the wiki!
+        HomePage        column=revision:timestamp, timestamp=1762875484673, value=2025-11-11T10:00:00
         2 row(s) in 0.0110 seconds
 
         hbase(main):024:0> deleteall 'wiki', 'HomePage'
@@ -223,16 +220,16 @@ Place the Hbase code **and the results** after each query.
     ```
         hbase(main):052:0> scan 'family', { COLUMNS => ['personal'] }
         ROW                        COLUMN+CELL
-        fam1                      column=personal:birthday, timestamp=1762876134385, value=1990-05-14
-        fam1                      column=personal:name, timestamp=1762876134340, value=Alice
-        fam2                      column=personal:birthday, timestamp=1762876134681, value=1985-02-01
-        fam2                      column=personal:name, timestamp=1762876134641, value=Bob
-        fam3                      column=personal:birthday, timestamp=1762876134852, value=2000-10-21
-        fam3                      column=personal:name, timestamp=1762876134833, value=Carol
-        fam4                      column=personal:birthday, timestamp=1762876135029, value=1975-07-09
-        fam4                      column=personal:name, timestamp=1762876135008, value=David
-        fam5                      column=personal:birthday, timestamp=1762876135239, value=2010-12-12
-        fam5                      column=personal:name, timestamp=1762876135201, value=Emma
+        fam1           column=personal:birthday, timestamp=1762876134385, value=1990-05-14
+        fam1           column=personal:name, timestamp=1762876134340, value=Alice
+        fam2           column=personal:birthday, timestamp=1762876134681, value=1985-02-01
+        fam2           column=personal:name, timestamp=1762876134641, value=Bob
+        fam3           column=personal:birthday, timestamp=1762876134852, value=2000-10-21
+        fam3           column=personal:name, timestamp=1762876134833, value=Carol
+        fam4           column=personal:birthday, timestamp=1762876135029, value=1975-07-09
+        fam4           column=personal:name, timestamp=1762876135008, value=David
+        fam5           column=personal:birthday, timestamp=1762876135239, value=2010-12-12
+        fam5           column=personal:name, timestamp=1762876135201, value=Emma
         5 row(s) in 0.0460 seconds
     ```
 
@@ -297,7 +294,15 @@ Place the Hbase code **and the results** after each query.
 **Query 6:** Get the names of family members who like a specific favorite food (e.g., pizza).
 
     ```
-    ANSWER HERE
+    hbase(main):006:0>     scan 'family', {
+    hbase(main):007:1*         FILTER => "SingleColumnValueFilter('favorites', 'food', =, 'binary:pizza')",
+    hbase(main):008:1*         COLUMNS => ['personal:name','favorites:food'] }
+    ROW                             COLUMN+CELL
+    fam1                            column=favorites:food, timestamp=1762876134412, value=pizza
+    fam1                            column=personal:name, timestamp=1762876134340, value=Alice
+    fam3                            column=favorites:food, timestamp=1762876134874, value=pizza
+    fam3                            column=personal:name, timestamp=1762876134833, value=Carol
+    2 row(s) in 0.0340 seconds
     ```
 
 **Query 7:** Create a vacation preference list with names.
